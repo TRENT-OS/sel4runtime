@@ -36,7 +36,7 @@ config_string(
 add_config_library(sel4runtime "${configure_string}")
 
 list(APPEND crt_files crt/sel4_arch/${KernelSel4Arch}/crti.S crt/sel4_arch/${KernelSel4Arch}/crtn.S)
-if("${KernelArch}" STREQUAL "riscv")
+if(KernelArchRiscV)
     list(APPEND crt_files crt/arch/${KernelArch}/crt0.S crt/arch/${KernelArch}/sel4_crt0.S)
 else()
     list(
@@ -92,7 +92,7 @@ list(
         src/memcpy.c
         src/vsyscall.c
 )
-if(("${KernelSel4Arch}" STREQUAL "aarch32") OR ("${KernelSel4Arch}" STREQUAL "arm_hyp"))
+if(KernelSel4ArchAarch32) # set for aarch32 or arm_hyp
     list(
         APPEND
             sources src/sel4_arch/${KernelSel4Arch}/__aeabi_read_tp.S
